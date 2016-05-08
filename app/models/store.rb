@@ -6,4 +6,11 @@ class Store < ActiveRecord::Base
   has_and_belongs_to_many :tacos
   has_and_belongs_to_many :salsas, join_table: :stores_salsas
 
+  belongs_to :city
+
+  def self.search(search_params)
+    stores = Store.joins(:tacos, :salsas)
+    stores
+  end
+
 end
