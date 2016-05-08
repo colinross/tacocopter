@@ -1,0 +1,11 @@
+div.field {
+  margin: 5px;
+  display: block;
+  label {
+    display: block;
+    margin-left: 15px;
+  }
+  label:first-of-type {
+    margin-left:0;
+  }
+}

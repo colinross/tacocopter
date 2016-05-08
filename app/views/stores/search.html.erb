@@ -1,0 +1,6 @@
+<!-- Search Results  -->
+<% if @stores.blank? %>
+  <h4>There are no stores that currently satisfy your needs.</h4>
+
+  <p><%= link_to "Search Again", :search_form_stores %></p>
+<% end %>

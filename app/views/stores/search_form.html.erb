@@ -1,0 +1,16 @@
+<!-- Search Form  -->
+<%= form_tag(search_form_stores_path, method: :post, id: "stores-search-form") do %>
+  <div class="field">
+    <%= label_tag(:q, "Select Tacos to Find:") %>
+    <%= collection_check_boxes(:search, :taco_ids, Taco.all, :id, :name) do |box|
+      box.label { box.check_box + box.text}
+    end %>
+  </div>
+  <div class="field">
+    <%= label_tag(:q, "Select Salsas to Find:") %>
+    <%= collection_check_boxes(:search, :salsa_ids, Salsa.all, :id, :name) do |box|
+      box.label { box.check_box + box.text}
+    end %>
+  </div>
+  <%= submit_tag "Search" %>
+<% end %>

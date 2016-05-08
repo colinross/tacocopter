@@ -10,6 +10,13 @@ Rails.application.routes.draw do
   resources :questions
   resources :coding_challenge, only: [:index]
 
+  resources :stores, only: [] do
+    collection do
+      get :search, to: 'stores#search_form', as: :search_form
+      post :search, to: 'stores#search', as: :search
+    end
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
