@@ -1,0 +1,8 @@
+{
+  "name": "Tacocopter Coding Challenge",
+  "description": "Find Tacos and Sauces",
+  "image": "heroku/ruby",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
