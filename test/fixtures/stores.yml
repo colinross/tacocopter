@@ -1,0 +1,15 @@
+robertos:
+  name: "Robertos"
+  city: solana_beach
+  tacos: carne_asada, pollo, pescado
+  salsas: habenero, pico_de_gallo
+juanitas:
+  name: "Juanitas"
+  city: encinitas
+  tacos: pollo, pescado
+  salsas: tomatillo, pico_de_gallo
+el_matador:
+  name: "El Matador"
+  city: san_diego
+  tacos: pescado, carne_asada
+  salsas: habenero, tomatillo

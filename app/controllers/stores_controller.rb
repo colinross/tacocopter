@@ -2,9 +2,11 @@ class StoresController < ApplicationController
   # While traditionally you would implement this a protected method like 'search_params',
   # that makes it really hard to test in isolation since you have to then deal with
   # stubbing and/or mocking out the call to 'params' in your tests.
-  class SearchParams
+  class SearchParams < ApplicationController::Params
     def self.build params
-      filtered_params = params.require(:search).permit(:taco_ids => [], :salsa_ids => [])
+      filtered_params = params.require(:search).\
+                          permit(:taco_ids => [], :salsa_ids => [])
+      recursive_reject_blanks(filtered_params)
     end
   end
 

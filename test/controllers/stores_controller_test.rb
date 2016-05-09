@@ -15,7 +15,8 @@ class StoresControllerTest < ActionController::TestCase
                                               "salsa_ids"=>["2","4","7","9",""],
                                               "foo" => ["bar", "baz"]}})
     filtered_params = StoresController::SearchParams.build(params)
-    assert_equal filtered_params, {"taco_ids"=>["4",""],"salsa_ids"=>["2","4","7","9",""]}
+    # also note the blank elements are removed thanks to `recursive_reject_blanks`
+    assert_equal filtered_params, {"taco_ids"=>["4"],"salsa_ids"=>["2","4","7","9"]}
   end
 
   test 'POST /stores/search should process the search via Stores#search and return the results' do
@@ -36,6 +37,8 @@ class StoresControllerTest < ActionController::TestCase
     mock.verify
     assert_select 'table.results'
     assert_select 'table.results tr', 3 # 1 for the header, and 2 for the results
+    assert_select 'td', "City 1"
+
   end
   test 'POST /stores/search should handle no results' do
     request_attributes = {"taco_ids"=>[],"salsa_ids"=>[]}
@@ -49,5 +52,25 @@ class StoresControllerTest < ActionController::TestCase
     assert_select 'table.results', false, "Search with no results should not have a table"
 
   end
+  test "POST /stores/search [no mocks]" do
+    search_params = {"taco_ids"=>[tacos(:carne_asada).id, tacos(:pescado).id].flatten,
+          "salsa_ids"=>[salsas(:habenero).id, salsas(:pico_de_gallo).id].flatten}
+    post :search, {"search" => search_params}
+
+    assert_response :success
+    assert_select 'table.results'
+    assert_select 'td', "Robertos"
+  end
+
+  test "POST /stores/search [no mocks, just tacos]" do
+    search_params = {"taco_ids"=>[tacos(:carne_asada).id, tacos(:pescado).id].flatten,
+          "salsa_ids"=>[]}
+    post :search, {"search" => search_params}
+
+    assert_response :success
+    assert_select 'table.results'
+    assert_select 'td', "Robertos"
+  end
+
 
 end
